@@ -1,0 +1,71 @@
+---
+  
+Resources:
+  
+    
+    secgr01:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow SSH/HTTP to VPS
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        
+    EC2labb1: 
+      Type: AWS::EC2::Instance
+      Properties: 
+        ImageId: "ami-0c1bc246476a5572b"
+        InstanceType: t2.micro
+        KeyName: key1
+        SecurityGroups:
+          - Ref: "secgr01"
+        Userdata:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              yum update -y
+              amazon-linux-extras install nginx1 -y
+              systemctl start nginx
+              systemctl enable nginx 
+      
+          
+        
+        
+        
+          
+  
+# ---
+# AWSTemplateFormatVersion: "version date"
+
+# Description:
+#   String
+
+# Metadata:
+#   template metadata
+
+# Parameters:
+#   set of parameters
+
+# Rules:
+#   set of rules
+
+# Mappings:
+#   set of mappings
+
+# Conditions:
+#   set of conditions
+
+# Transform:
+#   set of transforms
+
+# Resources:
+#   set of resources
+
+# Outputs:
+#   set of outputs
