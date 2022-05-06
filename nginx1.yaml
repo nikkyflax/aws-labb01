@@ -2,10 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: Template to Create an EC2 instance in a VPC
    
 Parameters:
-  VpcId:
-    Type: String
-    Description: VPC id
-    Default: vpc-0e255d330e11af1f4
   ImageId:
     Type: String
     Description: 'Linux 2 AMI for Ireland eu-west1 Region'
@@ -43,7 +39,6 @@ Resources:
   NginxSecGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      VpcId: !Ref VpcId
       GroupDescription: SG to allow SSH access via port 22
       SecurityGroupIngress:
         - IpProtocol: tcp
